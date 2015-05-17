@@ -224,7 +224,6 @@ class Item{
 
   void draw(){
     fill(0);
-    //text(name,10,10);
 
     fill(!over()?#fafafa:#ffcc00);
     stroke(0,10);
@@ -247,8 +246,16 @@ class Item{
 ////////////////////////////////////////////////
 
 class Library{
+  JSONObject root;
   String id;
   String name;
+
+
+  Library(JSONObject _root){
+    root = _root;
+  }
+
+
 };
 
 ////////////////////////////////////////////////
@@ -280,6 +287,7 @@ class Sequence{
 
   }
 
+  // get item by given name (String)
   Item getItemByName(String _name){
     Item tmp = null;
     for(int i = 0 ; i < parent.items.size();i++){
