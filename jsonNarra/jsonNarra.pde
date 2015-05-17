@@ -11,12 +11,14 @@ String port = "80";
 
 //Test test;
 Project project;
+MetaSequence ms;
+
 
 boolean ONLINE = true;
 boolean DEBUG = true;
 boolean LOAD_THUMBS = false;
 
-int textSize = 12;
+int textSize = 9;
 
 void setup(){
 
@@ -28,11 +30,15 @@ void setup(){
 
   project = new Project("faif",filename);
 
+  
+  ms = new MetaSequence(200,100);
+
   textFont(createFont("Inconsolata",textSize,true));
 }
 
 void draw(){
   background(255);
+  ms.draw();
   project.draw();
 }
 
@@ -225,6 +231,11 @@ class Item{
   void draw(){
     fill(0);
 
+    if(over()&&mousePressed){
+      ms.add(this);
+      mousePressed = false;
+    }
+
     fill(!over()?#fafafa:#ffcc00);
     stroke(0,10);
     rect(pos.x-5,pos.y-1,W+25,textSize+5);
@@ -320,6 +331,44 @@ class Sequence{
       line(i*100,height-100,item.pos.x,item.pos.y);
     }  
   }
+}
+
+class MetaSequence{
+  ArrayList items;
+  PVector pos;
+
+  MetaSequence(float _x, float _y){
+    items = new ArrayList();
+    pos = new PVector(_x,_y);
+  }
+
+  void add(Item _item){
+    items.add(_item);
+  }
+
+  void draw(){
+   
+    pushMatrix();
+    translate(pos.x,pos.y);
+    float X = 0, Y = 0;
+    for(int i = 0 ; i < items.size();i++){
+      Item tmp = (Item)items.get(i);
+      X += tmp.W + 10;
+
+      if(X+pos.x>width-10){
+      X=0;
+      Y+=textSize+2;
+      }
+
+      
+      fill(#ffcc00);
+      rect(X,Y,tmp.W,textSize+10);
+
+    }
+    popMatrix();
+  }
+  
+
 }
 
 class Author{
