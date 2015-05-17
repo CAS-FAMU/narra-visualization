@@ -31,14 +31,14 @@ void setup(){
   project = new Project("faif",filename);
 
   
-  ms = new MetaSequence(200,100);
+  //ms = new MetaSequence(200,100);
 
   textFont(createFont("Inconsolata",textSize,true));
 }
 
 void draw(){
   background(255);
-  ms.draw();
+  //ms.draw();
   project.draw();
 }
 
