@@ -5,24 +5,9 @@
     <title>Narra data viz</title>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="processing.min.js"></script>
-    <script type="text/javascript">
-
-var token;
-$.get('token.txt', function(data) {
-  token = data;
-});
-
-var query = "http://api.narra.eu/v1/projects?token="+token;
-var json = $.getJSON(query, function(data) {
-  var pjs = Processing.getInstanceById('narra');
-  console.log(data);
-  for(i = 0;i<data.projects.length;i++){
-    console.log(data.projects[i].name);
-    pjs.addEntry(data.projects[i].name);
-  }
-});
-    </script>
+    <script type="text/javascript" src="narraParser.js"></script>
   </head>
+  
   <body>
     <canvas id="narra" data-processing-sources="narra.pde"></canvas>
   </body>
