@@ -22,7 +22,7 @@ int textSize = 9;
 
 void setup(){
 
-  size(1600,900,P2D);
+  size(800,900,P2D);
 
   smooth();
 
@@ -30,7 +30,7 @@ void setup(){
 
   project = new Project("faif",filename);
 
-  
+
   //ms = new MetaSequence(200,100);
 
   textFont(createFont("Inconsolata",textSize,true));
@@ -143,6 +143,17 @@ class Project{
 };
 ////////////////////////////////////////////////
 
+class Loader implements Runnable{
+
+  Loader(){
+
+  }
+
+  void run(){
+
+  }
+}
+
 class Item{
 
   JSONObject data;
@@ -155,6 +166,7 @@ class Item{
   String type;
   String [] thumbnails;
   String url;
+  boolean prepared;
 
   float in,out;
 
@@ -191,28 +203,31 @@ class Item{
 
     name = data.getString("name");
     type = data.getString("type");
+    prepared = data.getBoolean("prepared");
 
-    if(type.equals("video")){
+    if(type.equals("video") && prepared){
 
-      url = data.getString("url");
-      video_proxy_hq = data.getString("video_proxy_hq");
-      video_proxy_lq = data.getString("video_proxy_lq");
-      audio_proxy = data.getString("audio_proxy");
-      metadata = data.getJSONArray("metadata");
+      try{
+        url = data.getString("url");
+        video_proxy_hq = data.getString("video_proxy_hq");
+        video_proxy_lq = data.getString("video_proxy_lq");
+        audio_proxy = data.getString("audio_proxy");
+        metadata = data.getJSONArray("metadata");
 
-      JSONArray tmp = data.getJSONArray("thumbnails");
-      thumbnails = new String[tmp.size()];
-      thumbs = new ArrayList();
+        JSONArray tmp = data.getJSONArray("thumbnails");
+        thumbnails = new String[tmp.size()];
+        thumbs = new ArrayList();
 
-      for(int ii = 0; ii < tmp.size();ii++){
-        thumbnails[ii] = tmp.getString(ii);
-        if(LOAD_THUMBS)
-          thumbs.add(loadImage(thumbnails[ii]));
+        for(int ii = 0; ii < tmp.size();ii++){
+          thumbnails[ii] = tmp.getString(ii);
+          if(LOAD_THUMBS)
+            thumbs.add(loadImage(thumbnails[ii]));
 
-        if(ii==0)
-          thumbs.add(loadImage(thumbnails[ii]));
+          if(ii==0)
+            thumbs.add(loadImage(thumbnails[ii]));
 
-      }
+        }
+      }catch(Exception e){;}
     }
   }
 
@@ -243,13 +258,15 @@ class Item{
     text(name,pos.x,pos.y+textSize);
 
     if(over()){
-    float Y = 0;
-      for(int i = 0 ; i < metadata.size();i++){
-        JSONObject tmp = metadata.getJSONObject(i);
-        text(tmp.getString("name")+": "+tmp.getString("value"),mouseX+50+25,mouseY+i*textSize);
-        Y = mouseY+i*textSize+10;
-      }
+      float Y = 0;
+      try{
+        for(int i = 0 ; i < metadata.size();i++){
+          JSONObject tmp = metadata.getJSONObject(i);
+          text(tmp.getString("name")+": "+tmp.getString("value"),mouseX+50+25,mouseY+i*textSize);
+          Y = mouseY+i*textSize+10;
+        }
         image((PImage)thumbs.get(0), mouseX+50+25 , Y );
+      }catch(Exception e){;}
     }
   }
 }
@@ -347,7 +364,7 @@ class MetaSequence{
   }
 
   void draw(){
-   
+
     pushMatrix();
     translate(pos.x,pos.y);
     float X = 0, Y = 0;
@@ -356,18 +373,18 @@ class MetaSequence{
       X += tmp.W + 10;
 
       if(X+pos.x>width-10){
-      X=0;
-      Y+=textSize+2;
+        X=0;
+        Y+=textSize+2;
       }
 
-      
+
       fill(#ffcc00);
       rect(X,Y,tmp.W,textSize+10);
 
     }
     popMatrix();
   }
-  
+
 
 }
 
