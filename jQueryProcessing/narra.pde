@@ -21,17 +21,21 @@ Entry addEntry(String _s) {
 
 class Entry {
   int x,y;
-  String txt;
 
-  Entry(String _s){
-    this.txt=_s;
+  String name,title,desc;
+  boolean pub;
+  ArrayList thumbs;
+  ArrayList contributors;
+
+  Entry(String _name){
+    this.name=_name;
     this.x=20;
     this.y=20;
   }
 
   void draw() {
     fill(0);
-    text("narra API state: "+txt,this.x,this.y);
+    text(name,this.x,this.y);
   }
 }
 
