@@ -7,6 +7,11 @@ var button;
 function setup() {
   // specify multiple formats for different browsers
   fingers = createVideo(['http://video.webmfiles.org/big-buck-bunny_trailer.webm','assets/test.webm']);
+ /* 
+  fingers.loop();
+  fingers.hide();
+
+  */
   button = createButton('play');
   button.mousePressed(toggleVid); // attach button listener
 }
