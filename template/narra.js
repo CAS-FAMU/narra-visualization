@@ -19,6 +19,7 @@
 
 var url;
 var data;
+var items;
 var font;
 
 var project;
@@ -26,6 +27,8 @@ var project;
 function preload(){
   url = 'http://api.narra.eu/v1/projects/faif/?token=Njc5OTMw';
   data = loadJSON(url);
+  url = 'http://api.narra.eu/v1/projects/faif/items?token=Njc5OTMw';
+  items = loadJSON(url);
   font = loadFont('assets/ProFontWindows.ttf');
 }
 
@@ -53,10 +56,16 @@ function Project(){
 }
 
 
-/*
 
 
-   function Item(){
-   }
-   */
+function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
+  this.id = id;
+  this.name = name;
+  this.type = type;
+  this.prepared = prepared;
+  this.thumbnails = thumbnails;
+  this.video_proxy_hq = video_hq;
+  this.video_proxy_lq = video_lq;
+
+}
 
