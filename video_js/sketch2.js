@@ -3,7 +3,7 @@ var fingers;
 function setup() {
   createCanvas(screen.width,screen.height);
   // specify multiple formats for different browsers
-  fingers = createVideo(['http://video.webmfiles.org/big-buck-bunny_trailer.webm','assets/test.webm']);
+  fingers = createVideo(['https://narra.s3.amazonaws.com/narra-testing20150627-storage/items/558ecfe76536384a79000025/0007PC.mp4','assets/test.webm']);
   
   fingers.loop();
   fingers.hide();
