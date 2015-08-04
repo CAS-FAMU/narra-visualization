@@ -58,7 +58,6 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
   this.name = name;
   this.title = title;
   this.desc = desc;
-
   this.desc = desc;
   this.author = author;
   this.synths = synths;
@@ -67,11 +66,19 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
   this.thumbnails = thumbnails;
   this.contrib = contrib;
   this.libs = libs;
+  
+  this.images = Array();
+
+  for(var i = 0 ; i < this.thumbnails.size;i++){
+    this.images = loadImage(this.thumbnails[i]);
+  } 
+  
   this.draw = function(){
     background(255);
     fill(0);
     text(this.title,100,100);
     text(this.desc,100,120,400,400);
+    image(this.images[0],10,10);
   }
 }
 
