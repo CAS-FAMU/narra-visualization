@@ -17,6 +17,10 @@
 
 */
 
+//////////////////////////////////////////////////////////////////////////////////
+
+var project_name = 'faif';
+
 var url;
 var data;
 var items;
@@ -24,17 +28,23 @@ var font;
 
 var project;
 var token;
+var itms = [];
+
+
+//////////////////////////////////////////////////////////////////////////////////
 
 function preload(){
   token = loadStrings('assets/token.txt');
-  url = 'http://api.narra.eu/v1/projects/faif/?token='+token;
+  url = 'http://api.narra.eu/v1/projects/'+project_name+'/?token='+token;
   data = loadJSON(url);
-  url = 'http://api.narra.eu/v1/projects/faif/items?token='+token;
+  url = 'http://api.narra.eu/v1/projects/'+project_name+'/items?token='+token;
   items = loadJSON(url);
+
   font = loadFont('assets/ProFontWindows.ttf');
 }
 
 function setup() {
+  println(items.items.length);
   createCanvas(800,600);
 
   textFont(font,9,false);
@@ -50,8 +60,22 @@ function setup() {
     data.project.contributors,
     data.project.libraries
   );
+
+  for(var i = 0 ; i < items.items.length;i++){
+    itms[i] = Item(
+      items.items[i].id,
+      items.items[i].name,
+      items.items[i].type,
+      items.items[i].prepared,
+      items.items[i].thumbnails,
+      items.items[i].video_proxy_hq,
+      items.items[i].video_proxy_lq 
+    );
+  }
+
 }
 
+//////////////////////////////////////////////////////////////////////////////////
 function draw() {
   project.draw();
 }
@@ -68,13 +92,13 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
   this.thumbnails = thumbnails;
   this.contrib = contrib;
   this.libs = libs;
-  
+
   this.images = Array();
 
   for(var i = 0 ; i < this.thumbnails.size;i++){
     this.images = loadImage(this.thumbnails[i]);
   } 
-  
+
   this.draw = function(){
     background(255);
     fill(0);
@@ -84,10 +108,12 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////
 function Library(){
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////
 function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.id = id;
   this.name = name;
@@ -98,3 +124,4 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.video_proxy_lq = video_lq;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
