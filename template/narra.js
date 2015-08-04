@@ -21,10 +21,13 @@ var url;
 var data;
 var font;
 
+function preload(){
+  url = 'http://api.narra.eu/v1/projects/faif/?token=Njc5OTMw';
+  data = loadJSON(url);
+}
+
 function setup() {
   createCanvas(800,600);
-  url = 'http://api.narra.eu/v1/system/version';
-  data = loadJSON(url);
   font = loadFont('assets/ProFontWindows.ttf');
   textFont(font,9,false);
 }
@@ -32,8 +35,15 @@ function setup() {
 function draw() {
   background(255);
   fill(0);
-  text(data.status+"",100,100);
-  text(data.version+"",100,120);
-
+  text(data.project.title,100,100);
 }
+
+/*
+function Project(){
+}
+
+
+function Item(){
+}
+*/
 
