@@ -23,11 +23,13 @@ var items;
 var font;
 
 var project;
+var token;
 
 function preload(){
-  url = 'http://api.narra.eu/v1/projects/faif/?token=Njc5OTMw';
+  token = loadStrings('assets/token.txt');
+  url = 'http://api.narra.eu/v1/projects/faif/?token='+token;
   data = loadJSON(url);
-  url = 'http://api.narra.eu/v1/projects/faif/items?token=Njc5OTMw';
+  url = 'http://api.narra.eu/v1/projects/faif/items?token='+token;
   items = loadJSON(url);
   font = loadFont('assets/ProFontWindows.ttf');
 }
