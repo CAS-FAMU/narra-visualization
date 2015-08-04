@@ -36,17 +36,37 @@ function setup() {
   createCanvas(800,600);
 
   textFont(font,9,false);
-  project = Project();
+  project = Project(
+    data.project.name,
+    data.project.title,
+    data.project.description,
+    data.project.author,
+    data.project.synthetizers,
+    data.project.visualizations,
+    data.project.public,
+    data.project.thumbnails,
+    data.project.contributors,
+    data.project.libraries
+  );
 }
 
 function draw() {
   project.draw();
 }
 
-function Project(){
-  this.title = data.project.title;
-  this.desc = data.project.description;
+function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
+  this.name = name;
+  this.title = title;
+  this.desc = desc;
 
+  this.desc = desc;
+  this.author = author;
+  this.synths = synths;
+  this.vis = vis;
+  this.pub = pub;
+  this.thumbnails = thumbnails;
+  this.contrib = contrib;
+  this.libs = libs;
   this.draw = function(){
     background(255);
     fill(0);
@@ -55,7 +75,8 @@ function Project(){
   }
 }
 
-
+function Library(){
+}
 
 
 function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
@@ -66,6 +87,5 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.thumbnails = thumbnails;
   this.video_proxy_hq = video_hq;
   this.video_proxy_lq = video_lq;
-
 }
 
