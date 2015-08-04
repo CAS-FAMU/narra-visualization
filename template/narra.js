@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 var project_name = 'faif';
+var debug = false;
 
 var url;
 var data;
@@ -44,8 +45,8 @@ function preload(){
 }
 
 function setup() {
-  println(items.items.length);
-  createCanvas(800,600);
+ 
+ createCanvas(screen.width,screen.height); 
 
   textFont(font,9,false);
   project = Project(
@@ -78,6 +79,7 @@ function setup() {
 //////////////////////////////////////////////////////////////////////////////////
 function draw() {
   project.draw();
+  itms[0].draw();
 }
 
 function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
@@ -93,10 +95,10 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
   this.contrib = contrib;
   this.libs = libs;
 
-  this.images = Array();
+  this.images = [];
 
   for(var i = 0 ; i < this.thumbnails.size;i++){
-    this.images = loadImage(this.thumbnails[i]);
+    this.images[i] = loadImage(this.thumbnails[i]);
   } 
 
   this.draw = function(){
@@ -104,7 +106,8 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
     fill(0);
     text(this.title,100,100);
     text(this.desc,100,120,400,400);
-    image(this.images[0],10,10);
+    image(images[0],10,10);
+
   }
 }
 
@@ -120,8 +123,19 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.type = type;
   this.prepared = prepared;
   this.thumbnails = thumbnails;
-  this.video_proxy_hq = video_hq;
-  this.video_proxy_lq = video_lq;
+  this.video_hq = video_hq;
+  this.video_lq = video_lq;
+  
+  //this.video = createVideo(this.video_lq);
+
+  if(debug){
+    println('adding item'+this.name);
+  }
+
+  this.draw = function(){
+    //image(this.video,0,0); 
+  }
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
