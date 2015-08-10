@@ -30,56 +30,72 @@ var font;
 var project;
 var token;
 var itms = [];
-
+var loaded = false;
 
 //////////////////////////////////////////////////////////////////////////////////
 
 function preload(){
-  token = loadStrings('assets/token.txt');
-  url = 'http://api.narra.eu/v1/projects/'+project_name+'/?token='+token;
-  data = loadJSON(url);
+  //token = loadStrings('assets/token.txt');
+  // url = 'http://api.narra.eu/v1/projects/'+project_name+'/?token='+token;
+  //data = loadJSON(url);
   url = 'http://api.narra.eu/v1/projects/'+project_name+'/items?token='+token;
   items = loadJSON(url);
 
-  font = loadFont('assets/ProFontWindows.ttf');
+
 }
 
+
+
+
 function setup() {
- 
- createCanvas(screen.width,screen.height); 
 
+  createCanvas(windowWidth,windowHeight); 
+
+
+  font = loadFont('assets/ProFontWindows.ttf');
   textFont(font,9,false);
-  project = Project(
-    data.project.name,
-    data.project.title,
-    data.project.description,
-    data.project.author,
-    data.project.synthetizers,
-    data.project.visualizations,
-    data.project.public,
-    data.project.thumbnails,
-    data.project.contributors,
-    data.project.libraries
-  );
+  /*
+     project = Project(
+     data.project.name,
+     data.project.title,
+     data.project.description,
+     data.project.author,
+     data.project.synthetizers,
+     data.project.visualizations,
+     data.project.public,
+     data.project.thumbnails,
+     data.project.contributors,
+     data.project.libraries
+     );
+     */
+  if(!loaded){
 
-  for(var i = 0 ; i < items.items.length;i++){
-    itms[i] = Item(
-      items.items[i].id,
-      items.items[i].name,
-      items.items[i].type,
-      items.items[i].prepared,
-      items.items[i].thumbnails,
-      items.items[i].video_proxy_hq,
-      items.items[i].video_proxy_lq 
-    );
+    for(var i = 0 ; i < items.items.length;i++){
+      itms[i] = new Item(
+        items.items[i].id,
+        items.items[i].name,
+        items.items[i].type,
+        items.items[i].prepared,
+        items.items[i].thumbnails,
+        items.items[i].video_proxy_hq,
+        items.items[i].video_proxy_lq 
+      );
+    }
+    loaded = true;
   }
+
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 function draw() {
-  project.draw();
-  itms[0].draw();
+  background(255);
+  //println(itms.length);
+
+  //project.draw();
+  for( var q = 0 ; q < itms.length ; q++ ){
+    itms[0].draw();
+  }
 }
 
 function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
@@ -115,7 +131,6 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
 function Library(){
 }
 
-
 //////////////////////////////////////////////////////////////////////////////////
 function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.id = id;
@@ -125,17 +140,23 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.thumbnails = thumbnails;
   this.video_hq = video_hq;
   this.video_lq = video_lq;
-  
+
+  //this.imag = loadImage(this.thumbnails[0]+'');
+
+  this.x = random(800);
+  this.y = random(600);
+
   //this.video = createVideo(this.video_lq);
 
   if(debug){
     println('adding item'+this.name);
   }
 
-  this.draw = function(){
-    //image(this.video,0,0); 
+  Item.prototype.draw = function(){
+    //image(this.imag,this.x,this.y);
+    rect(this.x,this.y,10,10);
+    text(""+name,this.x,this.y);
   }
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////
