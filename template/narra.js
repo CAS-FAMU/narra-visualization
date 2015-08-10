@@ -34,6 +34,8 @@ var loaded = false;
 
 var Y = 0;
 
+var sel = 0;
+
 //////////////////////////////////////////////////////////////////////////////////
 
 function preload(){
@@ -97,6 +99,19 @@ function draw() {
     itms[q].update();
     itms[q].draw();
   }
+  if(frameCount%100==0){
+  for( var q = 0 ; q < itms.length ; q++ ){
+    itms[q].stop();
+  }
+  }
+/*
+  if(frameCount%100==0){
+    itms[sel].stop();
+    sel++;
+    sel = sel % itms.length;
+    itms[sel].play();
+  }
+  */
 }
 
 function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
@@ -144,12 +159,19 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
   this.imag = loadImage(this.thumbnails[0]+'');
 
-  this.x = 100;
-  this.y = Y;
+  this.x = random(width);
+  this.y = random(height);
+  this.w = 160;
+  this.h = 90;
+
+  this.over = false;
+  this.playing = false;
+
 
   Y+=20;
 
-  //this.video = createVideo(this.video_lq);
+  this.video = createVideo(this.video_lq);
+  this.video.hide();
 /*
   if(debug){
     println('adding item'+this.name);
@@ -158,13 +180,36 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.update = function(){
 //    this.x = this.x + random(-1,1);
 //    this.y = this.y + random(-1,1);
+    this.isOver();
+    if(this.over && !this.playing){
+      this.play();
+      this.playing = true;
+    }
   }
 
   this.draw = function(){
-    image(this.imag,this.x,this.y,180,120);
+    tint(255,100);
+    image(this.video,this.x,this.y,this.w,this.h);
     rect(this.x,this.y,10,10);
     //textFont(font,9,false);
     text(""+this.name,this.x,this.y);
+  }
+
+  this.play = function(){
+    this.video.loop();
+  }
+
+  this.stop = function(){
+    this.video.stop();
+  }
+
+  this.isOver = function(){
+    if(mouseX > this.x && mouseX < this.x+this.w &&
+      mouseY > this.y && mouseY < this.y+this.h){
+      this.over = true;
+    }else{
+      this.over = false;
+    }
   }
 
 }
