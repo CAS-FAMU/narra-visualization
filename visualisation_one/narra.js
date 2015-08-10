@@ -100,12 +100,7 @@ function draw() {
     itms[q].update();
     itms[q].draw();
   }
-  if(frameCount%100==0){
-    for( var q = 0 ; q < itms.length ; q++ ){
-      itms[q].stop();
-    }
-  }
-  /*
+    /*
      if(frameCount%100==0){
      itms[sel].stop();
      sel++;
@@ -197,26 +192,24 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
       if(this.x-(this.ox+this.offset) < 10){
         this.playing = false;
+        this.play();
       }
 
     }else{
       this.x = this.x + ((this.ox - this.x) / 5.0);
     }
 
+    if(this.x-this.ox<100){
+      this.video.stop();
+    }
 
-
-    /*
-       this.play();
-       this.playing = true;
-       }
-       */
   }
 
   this.draw = function(){
     //tint(255,100);
     rect(this.x,this.y,this.w,this.h);
     //textFont(font,9,false);
-    image(this.imag,this.x,this.y,this.w,120);
+    image(this.video,this.x,this.y,this.w,120);
     text(""+this.name,this.x,this.y);
   }
 
