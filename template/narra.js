@@ -32,12 +32,15 @@ var token;
 var itms = [];
 var loaded = false;
 
+var Y = 0;
+
 //////////////////////////////////////////////////////////////////////////////////
 
 function preload(){
   //token = loadStrings('assets/token.txt');
   // url = 'http://api.narra.eu/v1/projects/'+project_name+'/?token='+token;
   //data = loadJSON(url);
+  font = loadFont('assets/ProFontWindows.ttf');
   url = 'http://api.narra.eu/v1/projects/'+project_name+'/items?token='+token;
   items = loadJSON(url);
 
@@ -52,7 +55,6 @@ function setup() {
   createCanvas(windowWidth,windowHeight); 
 
 
-  font = loadFont('assets/ProFontWindows.ttf');
   textFont(font,9,false);
   /*
      project = Project(
@@ -90,11 +92,10 @@ function setup() {
 //////////////////////////////////////////////////////////////////////////////////
 function draw() {
   background(255);
-  //println(itms.length);
-
-  //project.draw();
+  
   for( var q = 0 ; q < itms.length ; q++ ){
-    itms[0].draw();
+    itms[q].update();
+    itms[q].draw();
   }
 }
 
@@ -141,22 +142,31 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.video_hq = video_hq;
   this.video_lq = video_lq;
 
-  //this.imag = loadImage(this.thumbnails[0]+'');
+  this.imag = loadImage(this.thumbnails[0]+'');
 
-  this.x = random(800);
-  this.y = random(600);
+  this.x = 100;
+  this.y = Y;
+
+  Y+=20;
 
   //this.video = createVideo(this.video_lq);
-
+/*
   if(debug){
     println('adding item'+this.name);
   }
-
-  Item.prototype.draw = function(){
-    //image(this.imag,this.x,this.y);
-    rect(this.x,this.y,10,10);
-    text(""+name,this.x,this.y);
+*/
+  this.update = function(){
+//    this.x = this.x + random(-1,1);
+//    this.y = this.y + random(-1,1);
   }
+
+  this.draw = function(){
+    image(this.imag,this.x,this.y,180,120);
+    rect(this.x,this.y,10,10);
+    //textFont(font,9,false);
+    text(""+this.name,this.x,this.y);
+  }
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
