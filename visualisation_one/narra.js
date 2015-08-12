@@ -55,7 +55,7 @@ function preload(){
 
 function setup() {
 
-  createCanvas(windowWidth,windowHeight); 
+  createCanvas(windowWidth,windowHeight,'p2d'); 
 
 
   textFont(font,9,false);
@@ -171,18 +171,18 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
   //X+=10;
   Y+=10;
-  this.video = createVideo(this.video_lq);
-  this.video.hide();
+  //this.video = createVideo(this.video_lq);
+  //this.video.hide();
   if(debug){
     println('adding item'+this.name);
   }
+  
   this.update = function(){
     //    this.x = this.x + random(-1,1);
     //    this.y = this.y + random(-1,1);
 
 
     this.isOver();
-
     if(this.over && !this.playing){
       this.playing = true;
     }
@@ -192,7 +192,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
       if(this.x-(this.ox+this.offset) < 10){
         this.playing = false;
-        this.play();
+  //      this.play();
       }
 
     }else{
@@ -200,16 +200,15 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
     }
 
     if(this.x-this.ox<100){
-      this.video.stop();
+      //this.video.stop();
     }
-
   }
 
   this.draw = function(){
     //tint(255,100);
     rect(this.x,this.y,this.w,this.h);
     //textFont(font,9,false);
-    image(this.video,this.x,this.y,this.w,120);
+    image(this.imag,this.x,this.y,this.w,120);
     text(""+this.name,this.x,this.y);
   }
 
