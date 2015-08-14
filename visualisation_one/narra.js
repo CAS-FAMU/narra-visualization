@@ -94,7 +94,7 @@ function setup() {
 
 //////////////////////////////////////////////////////////////////////////////////
 function draw() {
-  background(0);
+  background(255);
 
   for( var q = 0 ; q < itms.length ; q++ ){
     itms[q].update();
@@ -164,7 +164,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.x = X;
   this.y = Y;
   this.w = 160;
-  this.h = 9;
+  this.h = 10;
 
   this.ox = X;
   this.oy = Y;
@@ -211,13 +211,17 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
   this.draw = function(){
     //tint(255,100);
-    //rect(this.x,this.y,this.w,this.h);
     //textFont(font,9,false);
-    image(this.imag,this.x,this.y,this.w,120);
     fill(255);
+    stroke(0,100);
+    rect(this.x,this.y,this.w,this.h);
+
+    noStroke();
+    fill(0);
 
     if(abs(this.x-(this.ox+this.offset)) < 10){
       var shift = 10;
+      image(this.imag,this.x,this.y,this.w,120);
       text(this.name,this.x+170,this.y+shift);
       text(this.type,this.x+180,this.y+10+shift);
       text(this.id,this.x+180,this.y+20+shift);
