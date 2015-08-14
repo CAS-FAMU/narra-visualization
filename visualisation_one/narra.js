@@ -55,7 +55,7 @@ function preload(){
 
 function setup() {
 
-  createCanvas(windowWidth,windowHeight); 
+  createCanvas(windowWidth,windowHeight,'p2d'); 
 
 
   textFont(font,9,false);
@@ -100,7 +100,7 @@ function draw() {
     itms[q].update();
     itms[q].draw();
   }
-    /*
+  /*
      if(frameCount%100==0){
      itms[sel].stop();
      sel++;
@@ -164,7 +164,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.x = X;
   this.y = Y;
   this.w = 160;
-  this.h = 15;
+  this.h = 9;
 
   this.ox = X;
   this.oy = Y;
@@ -179,11 +179,11 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   Y+=10;
   this.video = createVideo(this.video_lq);
   this.video.hide();
-  
+
   if(debug){
     println('adding item'+this.name);
   }
-  
+
   this.update = function(){
     //    this.x = this.x + random(-1,1);
     //    this.y = this.y + random(-1,1);
@@ -199,16 +199,14 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
       if(this.x-(this.ox+this.offset) < 10){
         this.playing = false;
-  //      this.video.loop();
+        //      this.video.loop();
       }
 
     }else{
       this.x = this.x + ((this.ox - this.x) / 5.0);
     }
 
-    if(this.x-this.ox<100){
-    //  this.video.stop();
-    }
+
   }
 
   this.draw = function(){
@@ -217,7 +215,16 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
     //textFont(font,9,false);
     image(this.imag,this.x,this.y,this.w,120);
     fill(255);
-    text(""+this.name,this.x,this.y);
+
+    if(abs(this.x-(this.ox+this.offset)) < 10){
+      var shift = 10;
+      text(this.name,this.x+170,this.y+shift);
+      text(this.type,this.x+180,this.y+10+shift);
+      text(this.id,this.x+180,this.y+20+shift);
+      text(this.video_lq,this.x+180,this.y+30+shift);
+      text(this.video_hq,this.x+180,this.y+40+shift);
+    }
+
   }
 
   this.play = function(){
