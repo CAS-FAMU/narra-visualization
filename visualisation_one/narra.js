@@ -55,7 +55,7 @@ function preload(){
 
 function setup() {
 
-  createCanvas(windowWidth,windowHeight,'p2d'); 
+  createCanvas(windowWidth,windowHeight); 
 
 
   textFont(font,9,false);
@@ -94,7 +94,7 @@ function setup() {
 
 //////////////////////////////////////////////////////////////////////////////////
 function draw() {
-  background(255);
+  background(0);
 
   for( var q = 0 ; q < itms.length ; q++ ){
     itms[q].update();
@@ -143,6 +143,12 @@ function Project(name,title,desc,author,synths,vis,pub,thumbnails,contrib,libs){
 function Library(){
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////
+function Sequence(){
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////
 function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
   this.id = id;
@@ -171,8 +177,9 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
   //X+=10;
   Y+=10;
-  //this.video = createVideo(this.video_lq);
-  //this.video.hide();
+  this.video = createVideo(this.video_lq);
+  this.video.hide();
+  
   if(debug){
     println('adding item'+this.name);
   }
@@ -192,7 +199,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
       if(this.x-(this.ox+this.offset) < 10){
         this.playing = false;
-  //      this.play();
+  //      this.video.loop();
       }
 
     }else{
@@ -200,15 +207,16 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
     }
 
     if(this.x-this.ox<100){
-      //this.video.stop();
+    //  this.video.stop();
     }
   }
 
   this.draw = function(){
     //tint(255,100);
-    rect(this.x,this.y,this.w,this.h);
+    //rect(this.x,this.y,this.w,this.h);
     //textFont(font,9,false);
     image(this.imag,this.x,this.y,this.w,120);
+    fill(255);
     text(""+this.name,this.x,this.y);
   }
 
