@@ -177,7 +177,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
 
   //X+=10;
   Y+=10;
-  
+
   this.video = createVideo(this.video_lq);
   this.video.hide();
 
@@ -218,7 +218,7 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
       var shift = 10;
       image(this.imag,this.x,this.y,this.w,100);
       image(this.video,this.x,this.y,this.w,100);
-      
+
       text(this.name,this.x+170,this.y+shift);
       text(this.type,this.x+180,this.y+10+shift);
       text(this.id,this.x+180,this.y+20+shift);
@@ -226,12 +226,12 @@ function Item(id,name,type,prepared,thumbnails,video_hq,video_lq){
       text(this.video_hq,this.x+180,this.y+40+shift);
     }else{
 
-    fill(255);
-    stroke(0,100);
-    rect(this.x,this.y,this.w,this.h);
+      fill(255);
+      stroke(0,100);
+      rect(this.x,this.y,this.w,this.h);
 
-    noStroke();
-    fill(0);
+      noStroke();
+      fill(0);
 
 
     }
