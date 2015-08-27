@@ -21,7 +21,7 @@
 int NUM = 20;
 int ID = 0;
 
-float RADIUS = 100;
+float RADIUS = 200;
 
 ArrayList entries;
 
@@ -49,6 +49,7 @@ void draw(){
 
   for(int i = 0 ; i<entries.size();i++){
     Entry tmp = (Entry)entries.get(i);
+    if(tmp.ovr)
     tmp.drawConnections(); 
   }
 
@@ -80,6 +81,7 @@ class Entry{
   PImage img;
   float len;
   String name;
+  boolean ovr;
 
   Entry(){
     id = ID;
@@ -109,6 +111,20 @@ class Entry{
 
     absPos.x = screenX(pos.x,pos.y);
     absPos.y = screenY(pos.x,pos.y);
+
+    ovr = over();
+  }
+
+  boolean over(){
+    boolean answer = false;
+
+    if(
+        mouseX > absPos.x-15 && mouseX < absPos.x + 15 && 
+        mouseY > absPos.y-15 && mouseY < absPos.y + 15 
+      ) 
+      answer = true;
+
+    return answer;
   }
 
   void drawConnections(){
