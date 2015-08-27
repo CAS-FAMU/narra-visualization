@@ -35,19 +35,22 @@ void setup(){
     entries.add(new Entry());
   }
 
-
   for(int i = 0 ; i<NUM;i++){
     Entry tmp= (Entry)entries.get(i);
     tmp.makeConnections(5);
   }
-
-
-
 }
 
 
 void draw(){
   background(255);
+
+  strokeWeight(1);
+
+  for(int i = 0 ; i<entries.size();i++){
+    Entry tmp = (Entry)entries.get(i);
+    tmp.drawConnections(); 
+  }
 
   strokeWeight(3);
 
@@ -73,6 +76,7 @@ class Entry{
   int id;
   ArrayList connections;
   PVector pos;
+  PVector absPos;
   PImage img;
   float len;
   String name;
@@ -82,7 +86,7 @@ class Entry{
     ID++;
     name = "test_"+id;
     pos = new PVector(0,0);//random(10,width-10),random(10,height-10));
-
+    absPos = new PVector(0,0);
   }
 
   void makeConnections(int num){
@@ -102,6 +106,16 @@ class Entry{
     fill(255);
     stroke(0);
     rect(pos.x,pos.y,10,10);
+
+    absPos.x = screenX(pos.x,pos.y);
+    absPos.y = screenY(pos.x,pos.y);
+  }
+
+  void drawConnections(){
+    for(int i = 0 ; i < connections.size();i++){
+      Connection c = (Connection)connections.get(i);
+      c.draw();
+    }
   }
 }
 
@@ -113,6 +127,10 @@ class Connection{
   Connection(Entry _a, Entry _b){
     A = _a;
     B = _b;
+  }
+
+  void draw(){
+    line(A.absPos.x,A.absPos.y,B.absPos.x,B.absPos.y);
   }
 
 }
