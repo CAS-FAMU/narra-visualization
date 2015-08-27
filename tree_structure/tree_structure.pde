@@ -53,7 +53,7 @@ void draw(){
     tmp.drawConnections(); 
   }
 
-  strokeWeight(3);
+  strokeWeight(2);
 
   pushMatrix();
   translate(width/2,height/2);
@@ -89,6 +89,9 @@ class Entry{
     name = "test_"+id;
     pos = new PVector(0,0);//random(10,width-10),random(10,height-10));
     absPos = new PVector(0,0);
+
+
+    img = loadImage("img.jpg");
   }
 
   void makeConnections(int num){
@@ -107,6 +110,7 @@ class Entry{
     rectMode(CENTER);
     fill(255);
     stroke(0);
+
     rect(pos.x,pos.y,10,10);
 
     absPos.x = screenX(pos.x,pos.y);
@@ -128,6 +132,8 @@ class Entry{
   }
 
   void drawConnections(){
+    imageMode(CENTER);
+    image(img,absPos.x,absPos.y,64,32);
     for(int i = 0 ; i < connections.size();i++){
       Connection c = (Connection)connections.get(i);
       c.draw();
@@ -146,7 +152,9 @@ class Connection{
   }
 
   void draw(){
-    line(A.absPos.x,A.absPos.y,B.absPos.x,B.absPos.y);
+    noFill();
+    stroke(0,120);
+    bezier(A.absPos.x,A.absPos.y,width/2,height/2,width/2,height/2,B.absPos.x,B.absPos.y);
   }
 
 }
