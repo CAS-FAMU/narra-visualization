@@ -27,7 +27,7 @@ ArrayList entries;
 
 void setup(){
   size(800,600);
-  surface.setResizable(false);
+//  surface.setResizable(false);
 
   entries = new ArrayList();
 

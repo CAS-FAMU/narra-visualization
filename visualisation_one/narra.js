@@ -19,7 +19,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-var project_name = 'faif';
+var project_name = 'mista';
 var debug = false;
 
 var url;
@@ -40,11 +40,11 @@ var sel = 0;
 //////////////////////////////////////////////////////////////////////////////////
 
 function preload(){
-  //token = loadStrings('assets/token.txt');
+  token = loadStrings('assets/token.txt')[0]+"";
   // url = 'http://api.narra.eu/v1/projects/'+project_name+'/?token='+token;
   //data = loadJSON(url);
   font = loadFont('assets/ProFontWindows.ttf');
-  url = 'http://api.narra.eu/v1/projects/'+project_name+'/items?token='+token;
+  url = 'http://api.narra.eu/v1/projects/'+project_name+'/items?token=Njc5OTMw';
   items = loadJSON(url);
 
 
