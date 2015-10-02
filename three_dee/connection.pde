@@ -22,6 +22,7 @@
 class Connection{
   float weight;
   Entry a,b;
+  PVector mid;
 
   Connection(Entry _a){
     a=_a;
@@ -31,5 +32,14 @@ class Connection{
     while(a==b){
       b = (Entry)entries.get((int)random(entries.size()));
     }
+  }
+
+  void update(){
+    mid = new PVector(
+        lerp(a.pos.x,b.pos.x,0.5),
+        lerp(a.pos.y,b.pos.y,0.5),
+        lerp(a.pos.z,b.pos.z,0.5)
+        );
+
   }
 }
