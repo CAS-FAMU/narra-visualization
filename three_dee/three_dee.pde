@@ -29,7 +29,7 @@ PImage back;
 PFont font;
 
 
-String projectName = "kofs_archive";
+String projectName = "faif";
 
 JSONObject project;
 JSONArray items; 
@@ -266,7 +266,7 @@ class Entry implements Runnable{
       c.update();
       strokeWeight(2);
       
-      stroke((c.selected&&over())?color(255,0,0):color(0),c.weight*90);
+      stroke((c.selected && over()) ? color(255,0,0) : color(0) , c.weight*90);
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
         line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
