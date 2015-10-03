@@ -59,7 +59,13 @@ void setup(){
       JSONArray thumbs = project.getJSONArray("thumbnails");
       String filename = thumbs.getString(0)+"";
       println(nm);
-      entries.add(new Entry(nm+"",filename+""));
+
+
+      Runnable runnable = new Entry(nm+"",filename+"");
+      Thread thread = new Thread(runnable);
+      thread.start();
+
+      entries.add(runnable);
     }catch(Exception e){
       println(e);
     }
@@ -78,8 +84,8 @@ void setup(){
 void draw(){
 
   background(255);
-  tint(255,90);
-  image(back,0,0,width,height);
+  //tint(255,90);
+  //image(back,0,0,width,height);
 
   pushMatrix();
   translate(width/2,height/2,0);
@@ -106,9 +112,20 @@ void mouseDragged(){
   rot.add(new PVector((mouseX-pmouseX)/100.0,(mouseY-pmouseY)/1000.0));
 }
 
-class Entry extends Thread{
+void mousePressed(){
+  for(int i = 0 ;i < entries.size();i++){
+    Entry tmp = (Entry)entries.get(i);
+    tmp.reset();
+  }
+
+
+}
+
+class Entry implements Runnable{
   String name;
   String filename;
+
+  boolean loaded = false;
 
   PImage thumb;
   PVector pos;
@@ -116,7 +133,7 @@ class Entry extends Thread{
   PVector pos2D;
 
   ArrayList connections;
-  float numC = 1;
+  float numC = 4;
 
   Entry(String _name, String _filename){
 
@@ -124,15 +141,20 @@ class Entry extends Thread{
     name = _name+"";//entries.size()+" test";
     filename = _filename;
 
-    thumb = loadImage(filename);
 
     if(name==null)
       name="error";
 
-    pos = tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
-    //pos = new PVector(0,0,0);
+    tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
+    pos = new PVector(0,0,0);
 
     connections = new ArrayList();
+  }
+
+  void reset(){
+
+    tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
+
   }
 
   void mkCn(){
@@ -140,17 +162,28 @@ class Entry extends Thread{
       connections.add(new Connection(this));
   }
 
+  void run(){
+    try{
+      thumb = loadImage(filename);
+    }catch(Exception e){
+      ;
+    };
+
+    loaded = true;
+  }
+
   void draw(){
-    //pos = new PVector( (tpos.x-pos.x)/100.0, (tpos.y-pos.y)/100.0, (tpos.z-pos.z)/100.0 );
+    pos.add( (tpos.x-pos.x)/10.0, (tpos.y-pos.y)/10.0, (tpos.z-pos.z)/10.0 );
 
     pushMatrix();
     translate(pos.x,pos.y,pos.z);
     noFill();
     if(over())
       fill(0);
-
     stroke(0,120);
-    box(10);
+
+    if(loaded)
+      box(10);
 
     pos2D = new PVector(screenX(0,0,0),screenY(0,0,0),0);
     popMatrix();
@@ -166,8 +199,10 @@ class Entry extends Thread{
     noFill();
     stroke(0);
     //rect(10,10,64,32);
-    tint(255, pow(map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0),1.5)*255 );
-    image(thumb,10,10,64,32);
+    if(loaded && thumb!=null){
+      tint(255, pow(map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0),1.5)*255 );
+      image(thumb,10,10,64,32);
+    }
     popMatrix();
 
     for(int i = 0 ; i < connections.size();i++){
