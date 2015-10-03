@@ -38,6 +38,9 @@ JSONArray items;
 ArrayList buttons;
 
 
+String token;
+
+
 float ZOOM = 1.0;
 
 void setup(){
@@ -47,6 +50,8 @@ void setup(){
   rot = new PVector(0,0);
 
   back = loadImage("background.png");
+
+  token = loadStrings("token.txt")[0];
 
   font = createFont("Tahoma",11,false);
   textFont(font);
