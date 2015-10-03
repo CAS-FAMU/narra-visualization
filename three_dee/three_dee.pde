@@ -34,6 +34,12 @@ String projectName = "kofs_archive";
 JSONObject project;
 JSONArray items; 
 
+
+ArrayList buttons;
+
+
+float ZOOM = 1.0;
+
 void setup(){
 
   size(1024,768,OPENGL);
@@ -42,11 +48,17 @@ void setup(){
 
   back = loadImage("background.png");
 
-  font = createFont("Tahoma",7,false);
+  font = createFont("Tahoma",11,false);
   textFont(font);
 
   project = loadJSONObject("http://api.narra.eu/v1/projects/"+projectName+"/items?token=Njc5OTMw");
   items = project.getJSONArray("items");
+
+  buttons = new ArrayList();
+
+  buttons.add(new Button("Authors",10,50));
+  buttons.add(new Button("Sequences",10,70));
+  buttons.add(new Button("Consequrences",10,90));
 
   println(items.size());
 
@@ -81,11 +93,26 @@ void setup(){
 //////////////////////////////////////////////
 
 
+void keyPressed(){
+  if(keyCode==UP)
+  ZOOM += 0.01;
+  
+  if(keyCode==DOWN)
+  ZOOM -= 0.01;
+
+}
+
 void draw(){
 
   background(255);
-  //tint(255,90);
-  //image(back,0,0,width,height);
+  tint(255,190);
+  image(back,0,0,width,height);
+
+  pushMatrix();
+  translate(width/2,height/2);
+  scale(ZOOM);
+  translate(-width/2,-height/2);
+
 
   pushMatrix();
   translate(width/2,height/2,0);
@@ -98,10 +125,18 @@ void draw(){
   }
 
   popMatrix();
+
   for(int i = 0 ;i < entries.size();i++){
     Entry tmp = (Entry)entries.get(i);
     tmp.draw2D();
   }
+
+  for(int i = 0 ;i < buttons.size();i++){
+    Button butt = (Button)buttons.get(i);
+    butt.draw();
+  }
+
+  popMatrix();
 
 
 }
@@ -128,19 +163,18 @@ class Entry implements Runnable{
   boolean loaded = false;
 
   PImage thumb;
+  PGraphics thumb_bw;
   PVector pos;
   PVector tpos;
   PVector pos2D;
 
   ArrayList connections;
-  float numC = 4;
+  float numC = 2;
 
   Entry(String _name, String _filename){
 
-
     name = _name+"";//entries.size()+" test";
     filename = _filename;
-
 
     if(name==null)
       name="error";
@@ -152,19 +186,28 @@ class Entry implements Runnable{
   }
 
   void reset(){
-
     tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
-
   }
 
   void mkCn(){
     for(int i = 0 ; i < numC;i++)
       connections.add(new Connection(this));
+
+
+    Connection first = (Connection)connections.get(0);
+    first.selected = true;
   }
 
   void run(){
     try{
       thumb = loadImage(filename);
+      thumb_bw = createGraphics(thumb.width,thumb.height);
+
+      thumb_bw.beginDraw();
+      thumb_bw.image(thumb,0,0);
+      thumb_bw.filter(GRAY);
+      thumb_bw.endDraw();
+
     }catch(Exception e){
       ;
     };
@@ -174,13 +217,14 @@ class Entry implements Runnable{
 
   void draw(){
     pos.add( (tpos.x-pos.x)/10.0, (tpos.y-pos.y)/10.0, (tpos.z-pos.z)/10.0 );
+    rot = new PVector(-frameCount/400.0,0);
 
     pushMatrix();
     translate(pos.x,pos.y,pos.z);
     noFill();
     if(over())
       fill(0);
-    stroke(0,120);
+    stroke(0,60);
 
     if(loaded)
       box(3);
@@ -200,12 +244,19 @@ class Entry implements Runnable{
     stroke(0);
     //rect(10,10,64,32);
     if(loaded && thumb!=null){
-      tint(255, pow(map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0),1.5)*255 );
+      float dist = map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0);
+      float ddist = 4.0/(pow(dist,12.0)+1);
 
+      tint( 255 , pow(dist,10.0)*255 );
+
+      imageMode(CENTER);
+      
       if(!over())
-        image(thumb,10,10,thumb.width/5,thumb.height/5);
+        image(thumb_bw,0,0,thumb.width/ddist,thumb.height/ddist);
       else
-        image(thumb,10,10,thumb.width/2,thumb.height/2);
+        image(thumb,0,0,thumb.width/ddist,thumb.height/ddist);
+
+      imageMode(CORNER);
 
     }
     popMatrix();
@@ -214,7 +265,8 @@ class Entry implements Runnable{
       Connection c = (Connection)connections.get(i);
       c.update();
       strokeWeight(2);
-      stroke(0,c.weight*90);
+      
+      stroke((c.selected&&over())?color(255,0,0):color(0),c.weight*90);
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
         line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);

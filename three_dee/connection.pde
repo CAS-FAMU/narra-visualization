@@ -23,6 +23,8 @@ class Connection{
   float weight;
   Entry a,b;
   PVector mid;
+  boolean selected = false;
+
 
   Connection(Entry _a){
     a=_a;
