@@ -40,7 +40,7 @@ ArrayList buttons;
 
 String token;
 
-
+int MODE = 0;
 float ZOOM = 1.0;
 
 void setup(){
@@ -61,9 +61,9 @@ void setup(){
 
   buttons = new ArrayList();
 
-  buttons.add(new Button("Authors",10,50));
-  buttons.add(new Button("Sequences",10,70));
-  buttons.add(new Button("Consequrences",10,90));
+  buttons.add(new Button("Authors",10,50,0));
+  buttons.add(new Button("Sequences",10,70,1));
+  buttons.add(new Button("Consequrences",10,90,2));
 
   println(items.size());
 
@@ -164,7 +164,7 @@ void mousePressed(){
 class Entry implements Runnable{
   String name;
   String filename;
-
+  color colors[] = {color(#ffcc00),color(255,0,0),color(0,127,255)};
   boolean loaded = false;
 
   PImage thumb;
@@ -178,7 +178,8 @@ class Entry implements Runnable{
 
   Entry(String _name, String _filename){
 
-    name = _name+"";//entries.size()+" test";
+    name = _name+"";
+
     filename = _filename;
 
     if(name==null)
@@ -212,7 +213,6 @@ class Entry implements Runnable{
       thumb_bw.image(thumb,0,0);
       thumb_bw.filter(GRAY);
       thumb_bw.endDraw();
-
     }catch(Exception e){
       ;
     };
@@ -271,7 +271,7 @@ class Entry implements Runnable{
       c.update();
       strokeWeight(2);
       
-      stroke((c.selected && over()) ? color(255,0,0) : color(0) , c.weight*90);
+      stroke(c.selected ? colors[MODE] : color(0) , c.weight*90);
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
         line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);

@@ -26,8 +26,10 @@ class Button{
 
   String name;
   PVector pos;
+  int mode;
 
-  Button(String _name,int _x,int _y){
+  Button(String _name,int _x,int _y,int _mode){
+  mode = _mode;
     name=  _name;
     pos = new PVector(_x,_y,0);
   }
@@ -38,6 +40,9 @@ class Button{
     fill( over() ? color(#ffcc00) : color(0) );
     text(name,0,0);
     popMatrix();
+
+    if(over()&&mousePressed)
+    MODE=mode;
   }
 
   boolean over(){
