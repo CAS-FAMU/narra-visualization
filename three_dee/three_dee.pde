@@ -77,8 +77,8 @@ void setup(){
 
 void draw(){
 
-  //background(255);
-  noTint();
+  background(255);
+  tint(255,90);
   image(back,0,0,width,height);
 
   pushMatrix();
@@ -106,7 +106,7 @@ void mouseDragged(){
   rot.add(new PVector((mouseX-pmouseX)/100.0,(mouseY-pmouseY)/1000.0));
 }
 
-class Entry{
+class Entry extends Thread{
   String name;
   String filename;
 
@@ -129,7 +129,7 @@ class Entry{
     if(name==null)
       name="error";
 
-   pos = tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
+    pos = tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
     //pos = new PVector(0,0,0);
 
     connections = new ArrayList();
@@ -142,16 +142,16 @@ class Entry{
 
   void draw(){
     //pos = new PVector( (tpos.x-pos.x)/100.0, (tpos.y-pos.y)/100.0, (tpos.z-pos.z)/100.0 );
-   
-   pushMatrix();
+
+    pushMatrix();
     translate(pos.x,pos.y,pos.z);
     noFill();
     if(over())
       fill(0);
-   
+
     stroke(0,120);
     box(10);
-    
+
     pos2D = new PVector(screenX(0,0,0),screenY(0,0,0),0);
     popMatrix();
   }
