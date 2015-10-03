@@ -174,7 +174,7 @@ class Entry implements Runnable{
   PVector pos2D;
 
   ArrayList connections;
-  float numC = 2;
+  float numC = 5;
 
   Entry(String _name, String _filename){
 
@@ -222,7 +222,7 @@ class Entry implements Runnable{
 
   void draw(){
     pos.add( (tpos.x-pos.x)/10.0, (tpos.y-pos.y)/10.0, (tpos.z-pos.z)/10.0 );
-    rot = new PVector(-frameCount/400.0,0);
+    rot = new PVector(-frameCount/800.0,0);
 
     pushMatrix();
     translate(pos.x,pos.y,pos.z);
@@ -242,15 +242,16 @@ class Entry implements Runnable{
     pushMatrix();
     translate(pos2D.x,pos2D.y,0);
     fill(0);
+    boolean over = over();
     if(over())
       text(name,10,0);
 
     noFill();
     stroke(0);
     //rect(10,10,64,32);
-    if(loaded && thumb!=null){
       float dist = map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0);
       float ddist = 4.0/(pow(dist,12.0)+1);
+    if(loaded && thumb!=null){
 
       tint( 255 , pow(dist,10.0)*255 );
 
@@ -271,7 +272,7 @@ class Entry implements Runnable{
       c.update();
       strokeWeight(2);
       
-      stroke(c.selected ? colors[MODE] : color(0) , c.weight*90);
+      stroke(c.selected ? colors[MODE] : color(0) , c.weight*255/(dist*10));
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
         line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
