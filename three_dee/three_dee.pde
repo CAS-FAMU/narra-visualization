@@ -116,13 +116,13 @@ class Entry{
   PVector pos2D;
 
   ArrayList connections;
-  float numC = 5;
+  float numC = 1;
 
   Entry(String _name, String _filename){
 
+
     name = _name+"";//entries.size()+" test";
     filename = _filename;
-
 
     thumb = loadImage(filename);
 
