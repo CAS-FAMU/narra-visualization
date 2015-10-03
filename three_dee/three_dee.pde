@@ -42,7 +42,7 @@ void setup(){
 
   back = loadImage("background.png");
 
-  font = createFont("Monospaced",9,false);
+  font = createFont("Tahoma",7,false);
   textFont(font);
 
   project = loadJSONObject("http://api.narra.eu/v1/projects/"+projectName+"/items?token=Njc5OTMw");
@@ -183,7 +183,7 @@ class Entry implements Runnable{
     stroke(0,120);
 
     if(loaded)
-      box(10);
+      box(3);
 
     pos2D = new PVector(screenX(0,0,0),screenY(0,0,0),0);
     popMatrix();
@@ -201,14 +201,20 @@ class Entry implements Runnable{
     //rect(10,10,64,32);
     if(loaded && thumb!=null){
       tint(255, pow(map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0),1.5)*255 );
-      image(thumb,10,10,64,32);
+
+      if(!over())
+        image(thumb,10,10,thumb.width/5,thumb.height/5);
+      else
+        image(thumb,10,10,thumb.width/2,thumb.height/2);
+
     }
     popMatrix();
 
     for(int i = 0 ; i < connections.size();i++){
       Connection c = (Connection)connections.get(i);
       c.update();
-      stroke(0,c.weight*127);
+      strokeWeight(2);
+      stroke(0,c.weight*90);
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
         line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
