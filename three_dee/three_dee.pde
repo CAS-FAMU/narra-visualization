@@ -251,8 +251,8 @@ class Entry implements Runnable{
     //rect(10,10,64,32);
       float dist = map(dist(pos2D.x,pos2D.y,mouseX,mouseY),0,width,1,0);
       float ddist = 4.0/(pow(dist,12.0)+1);
+    
     if(loaded && thumb!=null){
-
       tint( 255 , pow(dist,10.0)*255 );
 
       imageMode(CENTER);
