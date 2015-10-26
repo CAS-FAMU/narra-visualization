@@ -24,6 +24,7 @@ void setup() {
   size(canvasWidth, canvasHeight);
   
   imageMode(CENTER);
+  textFont(createFont("Tahoma",9,false));
   
   connections = new ArrayList();
   
@@ -38,13 +39,12 @@ void draw() {
   w = 0;
   h = 100;
   
-  /*
   background(255);
-  for(int i = 0 ; i< itms.size();i++){
-    Item current = (Item)itms.get(i);
+  for(int i = 0 ; i< connections.size();i++){
+    Item current = (Connection)connections.get(i);
     current.draw();
   }
-  */
+  
 }
 
 class Connection{
@@ -93,18 +93,22 @@ class Connection{
 
 class Item{
     Object data[];
+    PImage thumb;
     int x,y;
     
     
     Item(String _id){
         data = narra.getItem(_id);
+        thumb = loadImage(data.thumbnails[0]);
         println("creating object "+data.name);
         x = random(canvasWidth);
         y = random(canvasHeight);
     }
     
     void draw(){
+        fill(0);
         text(data.name,x,y);
+        image(thumb,x,y,thumb.width/4,thumb.height/4);
     }
     
     
