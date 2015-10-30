@@ -48,11 +48,13 @@ String token;
 int MODE = 0;
 float ZOOM = 1.0;
 
+float XX = -100;
+
 Object items[] = narra.getItems();
 junctions = narra.getJunctions("sequence");
 
 boolena drawI = true;
-
+ int mode = 0;
 
 
 //////////////////////////////////////////////
@@ -66,6 +68,10 @@ void mousePressed(){
     Entry tmp = (Entry)entries.get(i);
     tmp.reset();
   };
+  
+  
+    mode = mode % 2;  
+    mode++;
 };
 
 ///////////////////////
@@ -91,6 +97,7 @@ void setup() {
   
   entries = new ArrayList();
 
+  XX = -canvasWidth/3.0*2+100;
   for(int i= 0;i<items.length;i++){
     try{
       entries.add(new Entry(items[i].name,items[i],items[i].thumbnails[0]));
@@ -168,6 +175,9 @@ class Entry{
   
   PImage thumb;
   PGraphics thumb_bw;
+  
+  PVector align;
+  
   PVector pos;
   PVector tpos;
   PVector pos2D;
@@ -187,6 +197,9 @@ class Entry{
 
     if(name==null)
       name="error";
+      
+      align = new PVector(XX,canvasHeight/2-100);
+      XX += 80;
 
     tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
     pos = new PVector(0,0,0);
@@ -205,7 +218,15 @@ class Entry{
   };
   
   void reset(){
+    
+    if(mode==1)
     tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
+    
+    if(mode==2)
+    tpos = new PVector(align.x,align.y);
+    
+    
+      
   };
 
   void mkCn(){
@@ -249,7 +270,9 @@ class Entry{
   };
 
   void draw(){
+    
     pos.add( (tpos.x-pos.x)/10.0, (tpos.y-pos.y)/10.0, (tpos.z-pos.z)/10.0 );
+    
     rot = new PVector(-frameCount/800.0,0);
 
     pushMatrix();
@@ -257,7 +280,7 @@ class Entry{
     
     
     
-    text(name,0,0);
+    //text(name,0,0);
     
     noFill();
     stroke(0,90);
@@ -323,11 +346,26 @@ class Entry{
       c.update();
       strokeWeight(2);
       stroke(0,120);
+      noFill();
       
       //stroke(c.selected ? colors[MODE] : color(0) , c.weight*255/(dist*10));
       Entry tmp = (Entry)c.b;
       if(tmp!=this)
-        line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
+      {
+        //line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
+        float cx = abs(pos2D.x-tmp.pos2D.x)/2;
+        float cy = abs(pos2D.y-tmp.pos2D.y);
+        //float dia = sqrt(pow(tmp.pos2D.x-pos2D.x) * pow(tmp.pos2D.y-pos2D.y));
+        bezier(pos2D.x,
+        pos2D.y-thumb.height/8,
+        pos2D.x,
+        pos2D.y-cx-thumb.height/8,
+        tmp.pos2D.x,
+        tmp.pos2D.y-cx-thumb.height/8,
+        tmp.pos2D.x,
+        tmp.pos2D.y-thumb.height/8);
+        
+      }
     };
     
     
