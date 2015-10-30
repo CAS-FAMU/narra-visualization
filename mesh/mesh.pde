@@ -55,6 +55,8 @@ junctions = narra.getJunctions("sequence");
 
 boolena drawI = true;
  int mode = 0;
+ 
+ eCnt = 1;
 
 
 //////////////////////////////////////////////
@@ -63,15 +65,12 @@ void mouseDragged(){
   rot.add(new PVector((mouseX-pmouseX)/100.0,(mouseY-pmouseY)/1000.0));
 };
 
-void mousePressed(){
+void mouseReleased(){
   for(int i = 0 ;i < entries.size();i++){
     Entry tmp = (Entry)entries.get(i);
     tmp.reset();
   };
   
-  
-    mode = mode % 2;  
-    mode++;
 };
 
 ///////////////////////
@@ -90,14 +89,14 @@ void setup() {
   
   buttons = new ArrayList();
 
-  buttons.add(new Button("Authors",10,150,0));
-  buttons.add(new Button("Sequences",10,170,1));
-  buttons.add(new Button("Consequrences",10,190,2));
+  buttons.add(new Button("mesh",10,150,0));
+  buttons.add(new Button("line",10,170,1));
+  buttons.add(new Button("circle",10,190,2));
 
   
   entries = new ArrayList();
 
-  XX = -canvasWidth/3.0*2+100;
+  XX = -canvasWidth/2.0+200;
   for(int i= 0;i<items.length;i++){
     try{
       entries.add(new Entry(items[i].name,items[i],items[i].thumbnails[0]));
@@ -177,6 +176,7 @@ class Entry{
   PGraphics thumb_bw;
   
   PVector align;
+  PVector circ;
   
   PVector pos;
   PVector tpos;
@@ -186,29 +186,39 @@ class Entry{
   ArrayList connections;
   float numC = 3;
   
+  int iid;
+  
   float dist,ddist;
+
+
 
   Entry(String _name, Object _parent, String _filename){
     parent = _parent;
     
     name = _name+"";
     id = parent.id;
+    
     filename = _filename+"";
 
     if(name==null)
       name="error";
       
-      align = new PVector(XX,canvasHeight/2-100);
-      XX += 80;
+      align = new PVector(XX,canvasHeight/2-300);
+      XX += (canvasWidth-400) / (items.length()+0.0);;
 
     tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
     pos = new PVector(0,0,0);
-
+    
+    float an = eCnt / (items.length()+0.0);
+    eCnt++;
+    circ = new PVector(cos(an*TWO_PI)*300,sin(an*TWO_PI)*300);
     
     connections = new ArrayList();
     
     run();
   };
+
+
 
   void isOver(){
     over = false;
@@ -219,12 +229,14 @@ class Entry{
   
   void reset(){
     
-    if(mode==1)
+    if(mode==0)
     tpos = new PVector(random(-SPREAD,SPREAD),random(-SPREAD,SPREAD),random(-SPREAD,SPREAD));
     
-    if(mode==2)
+    if(mode==1)
     tpos = new PVector(align.x,align.y);
     
+    if(mode==2)
+    tpos = new PVector(circ.x,circ.y);
     
       
   };
@@ -355,7 +367,14 @@ class Entry{
         //line(pos2D.x,pos2D.y,tmp.pos2D.x,tmp.pos2D.y);
         float cx = abs(pos2D.x-tmp.pos2D.x)/2;
         float cy = abs(pos2D.y-tmp.pos2D.y);
+        
+        if(mode==2){
+            cx=0;
+            cy=0;
+        
+        }
         //float dia = sqrt(pow(tmp.pos2D.x-pos2D.x) * pow(tmp.pos2D.y-pos2D.y));
+        
         bezier(pos2D.x,
         pos2D.y-thumb.height/8,
         pos2D.x,
@@ -445,10 +464,10 @@ class Button{
 
   String name;
   PVector pos;
-  int mode;
+  int MODE;
 
   Button(String _name,int _x,int _y,int _mode){
-  mode = _mode;
+    MODE = _mode;
     name=  _name;
     pos = new PVector(_x,_y,0);
   };
@@ -461,7 +480,7 @@ class Button{
     popMatrix();
 
     if(over()&&mousePressed){
-    MODE=mode;
+    mode=MODE;
     };
   };
 
