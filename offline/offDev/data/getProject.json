@@ -1,0 +1,299 @@
+{
+
+    "status": "OK",
+    "project": 
+
+{
+
+    "name": "gezi",
+    "title": "GeziJihlava",
+    "description": "20 shots OccupyGezi / different authors interpretation",
+    "author": 
+
+{
+
+    "username": "tomas_doruska",
+    "name": "tomas doruska"
+
+},
+"synthesizers": 
+[
+
+    {
+        "identifier": "sequence",
+        "title": "Sequence Synthesizer",
+        "description": "Narra Synthesizer based on project sequences",
+        "options": { }
+    }
+
+],
+"visualizations": 
+[
+
+    {
+        "id": "5625fc95436f5748fd00004d",
+        "name": "Basic Grid",
+        "type": "processing",
+        "description": "",
+        "options": { }
+    }
+
+],
+"layouts": [ ],
+"public": true,
+"thumbnails": 
+[
+
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d84afea849010002a5/thumbnail_00054.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d54afea849010001a6/thumbnail_00008.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d64afea849010001fb/thumbnail_00007.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d64afea8490100020c/thumbnail_00024.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416513f0e949190004d4/thumbnail_00042.png"
+
+],
+"contributors": 
+[
+
+{
+
+    "username": "marigan",
+    "name": "Michal Mocnak"
+
+},
+{
+
+    "username": "petr_z_brodsk_",
+    "name": "Petr Zábrodský"
+
+},
+{
+
+    "username": "k0f",
+    "name": "Kryštof Pešek"
+
+},
+{
+
+    "username": "petrpulc",
+    "name": "Petr Pulc"
+
+},
+{
+
+    "username": "SpankyRok",
+    "name": "Štěpánka"
+
+},
+{
+
+    "username": "eric_rosenzveig",
+    "name": "Eric Rosenzveig"
+
+},
+{
+
+    "username": "hana_novakova",
+    "name": "Hana Novakova"
+
+},
+
+    {
+        "username": "john_zoidberg",
+        "name": "John Zoidberg"
+    }
+
+],
+"libraries": 
+[
+
+{
+
+    "id": "562cc0384afea84901000193",
+    "name": "2013Gezi_20_shotsTd",
+    "description": "DirenGezi",
+    "author": 
+
+{
+
+    "username": "tomas_doruska",
+    "name": "tomas doruska"
+
+},
+"shared": true,
+"thumbnails": 
+[
+
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d94afea849010002c7/thumbnail_00072.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d84afea849010002a5/thumbnail_00054.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d54afea849010001a6/thumbnail_00008.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d64afea8490100020c/thumbnail_00024.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/562cc0d64afea849010001fb/thumbnail_00007.png"
+
+],
+"contributors": 
+[
+
+{
+
+    "username": "marigan",
+    "name": "Michal Mocnak"
+
+},
+{
+
+    "username": "petr_z_brodsk_",
+    "name": "Petr Zábrodský"
+
+},
+{
+
+    "username": "petrpulc",
+    "name": "Petr Pulc"
+
+},
+{
+
+    "username": "SpankyRok",
+    "name": "Štěpánka"
+
+},
+{
+
+    "username": "eric_rosenzveig",
+    "name": "Eric Rosenzveig"
+
+},
+{
+
+    "username": "hana_novakova",
+    "name": "Hana Novakova"
+
+},
+
+        {
+            "username": "john_zoidberg",
+            "name": "John Zoidberg"
+        }
+    ]
+
+},
+{
+
+    "id": "563240bb13f0e949190004c1",
+    "name": "Gezi_Master_sequences",
+    "description": "These files are master sequences, so they include subtitle track and several mixed sound tracks",
+    "author": 
+
+{
+
+    "username": "tomas_doruska",
+    "name": "tomas doruska"
+
+},
+"shared": true,
+"thumbnails": 
+[
+
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416513f0e949190004d4/thumbnail_00021.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416413f0e949190004c3/thumbnail_00050.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416613f0e949190004f6/thumbnail_00231.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416513f0e949190004d4/thumbnail_00042.png",
+    "https://commondatastorage.googleapis.com/narra/narra-jihlava20151019-storage/items/5632416613f0e949190004f6/thumbnail_01155.png"
+
+],
+"contributors": 
+[
+
+{
+
+    "username": "marigan",
+    "name": "Michal Mocnak"
+
+},
+{
+
+    "username": "petr_z_brodsk_",
+    "name": "Petr Zábrodský"
+
+},
+{
+
+    "username": "k0f",
+    "name": "Kryštof Pešek"
+
+},
+{
+
+    "username": "petrpulc",
+    "name": "Petr Pulc"
+
+},
+{
+
+    "username": "SpankyRok",
+    "name": "Štěpánka"
+
+},
+{
+
+    "username": "eric_rosenzveig",
+    "name": "Eric Rosenzveig"
+
+},
+{
+
+    "username": "hana_novakova",
+    "name": "Hana Novakova"
+
+},
+
+            {
+                "username": "john_zoidberg",
+                "name": "John Zoidberg"
+            }
+        ]
+    }
+
+],
+"metadata": 
+[
+
+{
+
+    "name": "public",
+    "value": "true",
+    "public": false,
+    "updated_at": "2015-10-28T22:28:36.518Z"
+
+},
+{
+
+    "name": "Description",
+    "value": "Revolt in Gezi park, Istanbul.\nThis is completed documentary with EN subtitles from Gezi Park, Turkey Istanbul during OccupyGezi / DirenGezi event June 1-15th 2013/. I focused on documenting mostly peaceful gathering, different performances and meetings, music, creativity. I have 6 hours of semiPro footage of situations from 14 days of occupation of Gezi Park [filmed on Canon D600]. \nFeel free to contact me for sharing more of this material.",
+    "public": true,
+    "author": 
+
+    {
+        "username": "tomas_doruska",
+        "name": "tomas doruska"
+    },
+    "updated_at": "2015-10-29T18:04:30.836Z"
+
+},
+{
+
+    "name": "KeyWords",
+    "value": "OccupyGezi, Turkey, Istanbul, Gezi Park, diary, documentary, Chapulgu, revolt, street performances, citizen society, freedom of speech, protest, DirenGezi, OccupyGezi",
+    "public": true,
+    "author": 
+
+                {
+                    "username": "tomas_doruska",
+                    "name": "tomas doruska"
+                },
+                "updated_at": "2015-10-29T18:05:08.452Z"
+            }
+        ]
+    }
+
+}
